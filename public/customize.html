@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Customize your button</title>
+    <script async src="https://unpkg.com/@google-pay/button-element@2.1.5/dist/index.umd.min.js"></script>
+    <script async src="./js/customize.js"></script>
+    <link rel="stylesheet" href="./css/customize.css"></link>
+  </head>
+  <body>
+    <form class="top-bottom">
+      <label class="control">
+        <span>Button color</span>
+        <select id="button-color">
+          <option value="default" selected>default</option>
+          <option value="black">black</option>
+          <option value="white">white</option>
+        </select>
+      </label>
+      <label class="control">
+        <span>Button type</span>
+        <select id="button-type">
+          <option value="buy" selected>buy</option>
+          <option value="plain">plain</option>
+          <option value="donate">donate</option>
+        </select>
+      </label>
+      <label>
+        <input id="button-custom" type="checkbox" />
+        <span>Custom button size</span>
+      </label>
+      <label class="control">
+        <span>Button width <span class="value"></span></span>
+        <input id="button-width" type="range" min="160" max="800" value="240" disabled />
+      </label>
+      <label class="control">
+        <span>Button height <span class="value"></span></span>
+        <input id="button-height" type="range" min="40" max="100" value="40" disabled />
+      </label>
+    </form>
+
+    <div class="demo">
+      <google-pay-button
+        environment="TEST"
+        button-color="default"
+        button-type="buy"
+      ></google-pay-button>
+    </div>
+
+    <div>
+      <form>
+        <label>
+          <span>Library</span>
+          <select id="button-library">
+            <option value="javascript" selected>JavaScript</option>
+            <option value="react">React</option>
+            <option value="angular">Angular</option>
+            <option value="webcomponent">Web components</option>
+          </select>
+        </label>
+      </form>
+    </div>
+
+    <pre class="sample-code"></pre>
+    <p id="github">More information at <a target="_blank" rel="noopener">github</a>.</p>
+  </body>
+</html>

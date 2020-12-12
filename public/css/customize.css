@@ -1,0 +1,117 @@
+/**
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+ body, html {
+  font: 400 16px/24px Roboto,Noto Sans,Noto Sans JP,Noto Sans KR,Noto Naskh Arabic,Noto Sans Thai,Noto Sans Hebrew,Noto Sans Bengali,sans-serif;
+}
+
+form {
+  display: inline-block;
+}
+
+form.top-bottom {
+  margin: -4px -5px;
+}
+
+form.top-bottom label {
+  margin-top: 10px;
+}
+
+form label {
+  display: block;
+}
+
+form label.control {
+  display: inline-block;
+  width: 200px;
+  margin: 4px 5px;
+}
+
+form label > span {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+form label.control > span {
+  display: block;
+}
+
+form label .value {
+  font-size: 80%;
+  color: #666;
+}
+
+form select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  box-shadow: none;
+  color: #202124;
+  cursor: pointer;
+  display: inline-block;
+  font: 500 14px/36px Google Sans,Noto Sans,Noto Sans JP,Noto Sans KR,Noto Naskh Arabic,Noto Sans Thai,Noto Sans Hebrew,Noto Sans Bengali,sans-serif;
+  height: 36px;
+  line-height: 34px;
+  outline: 0;
+  padding: 0 27px 0 15px;
+  text-align: left;
+  text-indent: .01px;
+  text-overflow: ellipsis;
+  transition: background-color .2s;
+  vertical-align: middle;
+  white-space: nowrap;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="4" viewBox="0 0 20 4"><path d="M0,0l4,4l4-4H0z" fill="%23212121"/></svg>') #fff no-repeat 100%;
+}
+
+form.top-bottom select {
+  width: 100%;
+}
+
+form option {
+  font-weight: normal;
+  display: block;
+  white-space: pre;
+  min-height: 1.2em;
+  padding: 0 2px 1px;
+}
+
+form input[type="range"] {
+  width: 100%;
+}
+
+#github {
+  font-size: 90%;
+  display: none;
+}
+
+.sample-code {
+  border-radius: 2px;
+  background-color: #f1f3f4;
+  color: #37474f;
+  padding: 24px;
+  font: 14px/20px Roboto Mono, monospace;
+}
+
+.demo {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  min-height: 40px;
+}
+
+google-pay-button {
+  transition: width 0.2s, height 0.2s;
+}
