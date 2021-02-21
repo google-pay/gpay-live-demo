@@ -54,6 +54,8 @@ const button = document.querySelector('google-pay-button');
 const buttonColor = document.getElementById('button-color');
 /** @type {HTMLSelectElement} */
 const buttonType = document.getElementById('button-type');
+/** @type {HTMLSelectElement} */
+const buttonLocale = document.getElementById('button-locale');
 /** @type {HTMLInputElement} */
 const buttonCustom = document.getElementById('button-custom');
 /** @type {HTMLInputElement} */
@@ -72,6 +74,11 @@ buttonColor.addEventListener('change', event => {
 
 buttonType.addEventListener('change', event => {
   button.buttonType = buttonType.value;
+  updateState();
+});
+
+buttonLocale.addEventListener('change', event => {
+  button.buttonLocale = buttonLocale.value;
   updateState();
 });
 
@@ -120,6 +127,7 @@ const container = document.getElementById('container');
 const button = googlePayClient.createButton({
   buttonColor: '${button.buttonColor}',
   buttonType: '${button.buttonType}',
+  ${button.buttonLocale !== '' ? `buttonLocale: \'${button.buttonLocale}\',` : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? 'buttonSizeMode: \'fill\',' : '__empty__'}
   onClick: () => {},
 });
@@ -132,6 +140,7 @@ container.appendChild(button);`,
   environment="TEST"
   buttonColor="${button.buttonColor}"
   buttonType="${button.buttonType}"
+  ${button.buttonLocale !== '' ? `buttonLocale="${button.buttonLocale}"` : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? 'buttonSizeMode="fill"' : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? `style={{width: ${buttonWidth.value}, height: ${buttonHeight.value}}}` : '__empty__'}
   />`,
@@ -142,6 +151,7 @@ container.appendChild(button);`,
   environment="TEST"
   buttonColor="${button.buttonColor}"
   buttonType="${button.buttonType}"
+  ${button.buttonLocale !== '' ? `buttonLocale="${button.buttonLocale}"` : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? 'buttonSizeMode="fill"' : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? `style="width: ${buttonWidth.value}px; height: ${buttonHeight.value}px;"` : '__empty__'}
 ></google-pay-button>`,
@@ -152,6 +162,7 @@ container.appendChild(button);`,
   environment="TEST"
   button-color="${button.buttonColor}"
   button-type="${button.buttonType}"
+  ${button.buttonLocale !== '' ? `button-locale="${button.buttonLocale}"` : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? 'button-size-mode="fill"' : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? `style="width: ${buttonWidth.value}px; height: ${buttonHeight.value}px;"` : '__empty__'}
 ></google-pay-button>`,
