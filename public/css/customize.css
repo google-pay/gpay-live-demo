@@ -112,6 +112,10 @@ form input[type="range"] {
   min-height: 40px;
 }
 
+.save {
+  min-height: 76px;
+}
+
 google-pay-button {
   transition: width 0.2s, height 0.2s;
 }
