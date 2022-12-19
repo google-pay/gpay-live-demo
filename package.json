@@ -25,6 +25,6 @@
   },
   "homepage": "https://github.com/google-pay/gpay-live-demo#readme",
   "devDependencies": {
-    "serve": "^11.3.2"
+    "serve": "^14.1.2"
   }
 }
