@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
- body, html {
+body, html {
   font: 400 16px/24px Roboto,Noto Sans,Noto Sans JP,Noto Sans KR,Noto Naskh Arabic,Noto Sans Thai,Noto Sans Hebrew,Noto Sans Bengali,sans-serif;
+  margin: initial;
 }
 
 form {
