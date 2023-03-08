@@ -22,10 +22,18 @@
     <title>Customize your button</title>
     <script async src="https://unpkg.com/@google-pay/button-element@3/dist/index.umd.min.js"></script>
     <script async src="./js/customize.js"></script>
-    <link rel="stylesheet" href="./css/customize.css" />
+    <link rel="stylesheet" href="./css/customize.css"></link>
   </head>
   <body>
     <form class="top-bottom">
+      <label class="control">
+        <span>Button color</span>
+        <select id="button-color">
+          <option value="default" selected>default</option>
+          <option value="black">black</option>
+          <option value="white">white</option>
+        </select>
+      </label>
       <label class="control">
         <span>Button type</span>
         <select id="button-type">
