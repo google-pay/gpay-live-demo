@@ -130,6 +130,7 @@ const button = googlePayClient.createButton({
   ${button.buttonLocale ? `buttonLocale: \'${button.buttonLocale}\',` : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? 'buttonSizeMode: \'fill\',' : '__empty__'}
   onClick: () => {},
+  allowedPaymentMethods: [] // use the same payment methods as for the loadPaymentData() API call
 });
 
 container.appendChild(button);`,
