@@ -51,6 +51,8 @@ const paymentRequest = {
 const button = document.querySelector('google-pay-button');
 
 /** @type {HTMLSelectElement} */
+const buttonColor = document.getElementById('button-color');
+/** @type {HTMLSelectElement} */
 const buttonType = document.getElementById('button-type');
 /** @type {HTMLSelectElement} */
 const buttonLocale = document.getElementById('button-locale');
@@ -64,6 +66,11 @@ const buttonHeight = document.getElementById('button-height');
 const buttonLibrary = document.getElementById('button-library');
 
 button.paymentRequest = paymentRequest;
+
+buttonColor.addEventListener('change', event => {
+  button.buttonColor = buttonColor.value;
+  updateState();
+});
 
 buttonType.addEventListener('change', event => {
   button.buttonType = buttonType.value;
@@ -118,6 +125,7 @@ const libraryInfo = {
 // javascript fragment
 const container = document.getElementById('container');
 const button = googlePayClient.createButton({
+  buttonColor: '${button.buttonColor || 'default'}',
   buttonType: '${button.buttonType || 'buy'}',
   ${button.buttonLocale ? `buttonLocale: \'${button.buttonLocale}\',` : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? 'buttonSizeMode: \'fill\',' : '__empty__'}
@@ -130,6 +138,7 @@ container.appendChild(button);`,
     github: 'https://github.com/google-pay/google-pay-button/blob/main/src/button-react#readme',
     template: () => `<GooglePayButton
   environment="TEST"
+  buttonColor="${button.buttonColor || 'default'}"
   buttonType="${button.buttonType || 'buy'}"
   ${button.buttonLocale ? `buttonLocale="${button.buttonLocale}"` : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? 'buttonSizeMode="fill"' : '__empty__'}
@@ -140,6 +149,7 @@ container.appendChild(button);`,
     github: 'https://github.com/google-pay/google-pay-button/blob/main/src/button-angular#readme',
     template: () => `<google-pay-button
   environment="TEST"
+  buttonColor="${button.buttonColor || 'default'}"
   buttonType="${button.buttonType || 'buy'}"
   ${button.buttonLocale ? `buttonLocale="${button.buttonLocale}"` : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? 'buttonSizeMode="fill"' : '__empty__'}
@@ -150,6 +160,7 @@ container.appendChild(button);`,
     github: 'https://github.com/google-pay/google-pay-button/blob/main/src/button-element#readme',
     template: () => `<google-pay-button
   environment="TEST"
+  button-color="${button.buttonColor || 'default'}"
   button-type="${button.buttonType || 'buy'}"
   ${button.buttonLocale ? `button-locale="${button.buttonLocale}"` : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? 'button-size-mode="fill"' : '__empty__'}
