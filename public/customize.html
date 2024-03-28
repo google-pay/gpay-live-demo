@@ -84,6 +84,11 @@
           <option value="uk">Ukrainian</option>
         </select>
       </label>
+      <label></label>
+      <label class="control">
+        <span>Button corner radius <span class="value"></span></span>
+        <input id="button-radius" type="range" min="0" max="100" value="4" />
+      </label>
       <label>
         <input id="button-custom" type="checkbox" />
         <span>Custom button size</span>
@@ -103,6 +108,7 @@
         environment="TEST"
         button-color="default"
         button-type="buy"
+        button-radius="4"
       ></google-pay-button>
     </div>
 
