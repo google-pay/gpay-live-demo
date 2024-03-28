@@ -55,6 +55,8 @@ const buttonColor = document.getElementById('button-color');
 /** @type {HTMLSelectElement} */
 const buttonType = document.getElementById('button-type');
 /** @type {HTMLSelectElement} */
+const buttonRadius = document.getElementById('button-radius');
+/** @type {HTMLSelectElement} */
 const buttonLocale = document.getElementById('button-locale');
 /** @type {HTMLInputElement} */
 const buttonCustom = document.getElementById('button-custom');
@@ -104,6 +106,11 @@ buttonHeight.addEventListener('change', event => {
   updateState();
 });
 
+buttonRadius.addEventListener('change', event => {  
+  button.buttonRadius = buttonRadius.value;
+  updateState();
+});
+
 function handleSliderInput(event) {
   const element = event.target.parentElement.querySelector('.value');
   element.textContent = `(${event.target.value}px)`;
@@ -111,6 +118,7 @@ function handleSliderInput(event) {
 
 buttonWidth.addEventListener('input', handleSliderInput);
 buttonHeight.addEventListener('input', handleSliderInput);
+buttonRadius.addEventListener('input', handleSliderInput);
 
 buttonLibrary.addEventListener('change', event => {
   library = buttonLibrary.value;
@@ -127,6 +135,7 @@ const container = document.getElementById('container');
 const button = googlePayClient.createButton({
   buttonColor: '${button.buttonColor || 'default'}',
   buttonType: '${button.buttonType || 'buy'}',
+  buttonRadius: ${button.buttonRadius || 4},
   ${button.buttonLocale ? `buttonLocale: \'${button.buttonLocale}\',` : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? 'buttonSizeMode: \'fill\',' : '__empty__'}
   onClick: () => {},
@@ -141,6 +150,7 @@ container.appendChild(button);`,
   environment="TEST"
   buttonColor="${button.buttonColor || 'default'}"
   buttonType="${button.buttonType || 'buy'}"
+  buttonRadius="${button.buttonRadius || '4'}"
   ${button.buttonLocale ? `buttonLocale="${button.buttonLocale}"` : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? 'buttonSizeMode="fill"' : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? `style={{width: ${buttonWidth.value}, height: ${buttonHeight.value}}}` : '__empty__'}
@@ -152,6 +162,7 @@ container.appendChild(button);`,
   environment="TEST"
   buttonColor="${button.buttonColor || 'default'}"
   buttonType="${button.buttonType || 'buy'}"
+  buttonRadius="${button.buttonRadius || '4'}"
   ${button.buttonLocale ? `buttonLocale="${button.buttonLocale}"` : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? 'buttonSizeMode="fill"' : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? `style="width: ${buttonWidth.value}px; height: ${buttonHeight.value}px;"` : '__empty__'}
@@ -163,6 +174,7 @@ container.appendChild(button);`,
   environment="TEST"
   button-color="${button.buttonColor || 'default'}"
   button-type="${button.buttonType || 'buy'}"
+  button-radius="${button.buttonRadius || '4'}"
   ${button.buttonLocale ? `button-locale="${button.buttonLocale}"` : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? 'button-size-mode="fill"' : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? `style="width: ${buttonWidth.value}px; height: ${buttonHeight.value}px;"` : '__empty__'}
