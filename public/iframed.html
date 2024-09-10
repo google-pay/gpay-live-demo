@@ -253,7 +253,7 @@
        */
       function processPayment(paymentData) {
         console.log(paymentData);
-        window.postMessage("Success with card: " + paymentData.paymentMethodData.description, "https://dmengelt.github.io");
+        window.parent.postMessage("Success with card: " + paymentData.paymentMethodData.description, "https://dmengelt.github.io");
         // show returned data in developer console for debugging        
         // @todo pass payment token to your gateway to process payment
         paymentToken = paymentData.paymentMethodData.tokenizationData.token;
