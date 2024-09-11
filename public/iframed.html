@@ -242,6 +242,7 @@
             .catch(function(err) {
               // show error in developer console for debugging
               console.error(err);
+              window.parent.postMessage("An error occured: " + error, "https://dmengelt.github.io");
             });
       }
 
