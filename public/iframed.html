@@ -275,11 +275,7 @@
             console.log("Received message but origin was not dmengelt.github.io");
           } else {
             console.log("Received event: " + event.data + " - triggering focusPaymentSheet()");
-
-            setTimeout(() => {
-              paymentsClient.focusPaymentSheet();
-            }, "500");
-            
+            paymentsClient.focusPaymentSheet();
           }
         },
         false,
