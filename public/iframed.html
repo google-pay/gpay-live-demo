@@ -267,6 +267,19 @@
         // @todo pass payment token to your gateway to process payment
         paymentToken = paymentData.paymentMethodData.tokenizationData.token;
       }
+
+      window.addEventListener(
+        "message",
+        (event) => {
+          if (event.origin !== "https://dmengelt.github.io") {
+            console.log("Received message but origin was not dmengelt.github.io");
+          } else {
+            console.log("Received event: " + event.data + " - triggering focusPaymentSheet()");
+            paymentsClient.focusPaymentSheet();
+          }
+        },
+        false,
+      );
     </script>
   </body>
 </html>
