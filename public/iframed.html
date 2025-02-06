@@ -155,6 +155,7 @@
        */
       function getGooglePaymentsClient() {
         if ( paymentsClient === null ) {
+          console.log("paymentsClient is null... creating a new one!")
           paymentsClient = new google.payments.api.PaymentsClient({environment: 'TEST'});
         }
         return paymentsClient;
