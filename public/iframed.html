@@ -251,7 +251,7 @@
             .catch(function(err) {
               // show error in developer console for debugging
               console.log(err);
-              window.parent.postMessage("An error occured: " + err, "https://dmengelt.github.io");
+              window.parent.postMessage("An error occured: " + JSON.stringify(err), "https://dmengelt.github.io");
             });
       }
 
