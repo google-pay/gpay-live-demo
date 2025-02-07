@@ -52,8 +52,12 @@
             } else {
               console.log("!!! userActivation.isActive is FALSE! triggering popupWindow.focus()");
             }
-            // triggering focusPaymentSheet() no matter what the value of userActivation.isActive is for now!
-            popupWindow.focus();
+            // triggering popupWindow.focus() no matter what the value of userActivation.isActive is for now!            
+            try {
+              popupWindow.focus();
+            } catch (e) {
+              console.error("Unable to trigger popupWindow.focus(): " + e);
+            }
           }
         },
         false,
