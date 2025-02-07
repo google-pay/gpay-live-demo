@@ -253,8 +253,7 @@
             })
             .catch(function(err) {
               // show error in developer console for debugging
-              console.log(err);
-              window.parent.postMessage("An error occured: " + JSON.stringify(err), "https://dmengelt.github.io");
+              console.log(err);             
             });
       }
 
@@ -265,31 +264,12 @@
        * @see {@link https://developers.google.com/pay/api/web/reference/response-objects#PaymentData|PaymentData object reference}
        */
       function processPayment(paymentData) {
-        console.log(paymentData);
-        window.parent.postMessage("Success with card: " + paymentData.paymentMethodData.description, "https://dmengelt.github.io");
+        console.log(paymentData);       
         // show returned data in developer console for debugging        
         // @todo pass payment token to your gateway to process payment
         paymentToken = paymentData.paymentMethodData.tokenizationData.token;
       }
-
-      window.addEventListener(
-        "message",
-        (event) => {
-          if (event.origin !== "https://dmengelt.github.io") {
-            console.log("Received message but origin was not dmengelt.github.io");
-          } else {
-            console.log("Received event: " + event.data);
-            if (navigator.userActivation.isActive) {
-              console.log("!!! userActivation.isActive is TRUE! triggering focusPaymentSheet()");
-            } else {
-              console.log("!!! userActivation.isActive is FALSE! triggering focusPaymentSheet()");
-            }
-            // triggering focusPaymentSheet() no matter what the value of userActivation.isActive is for now!
-            paymentsClient.focusPaymentSheet();
-          }
-        },
-        false,
-      );
+  
 
       window.onerror = function (message, file, line, col, error) {
         console.log("Error occurred: " + error.message);
