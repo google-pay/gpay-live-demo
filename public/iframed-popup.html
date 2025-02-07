@@ -28,7 +28,7 @@
         let popupWindow = null;
 
         function openPopup() {
-            popupWindow = window.open("https://pay.google.com/about/", "_blank", "width=600,height=400");
+            popupWindow = window.open("https://bunpay.app/google-pay/popup", "_blank", "width=600,height=400");
 
             // Optional: Check if the popup was blocked
             if (popupWindow && popupWindow.closed) {
@@ -48,15 +48,15 @@
           } else {
             console.log("Received event: " + event.data);
             if (navigator.userActivation.isActive) {
-              console.log("!!! userActivation.isActive is TRUE! triggering popupWindow.focus()");
+              console.log("!!! userActivation.isActive is TRUE! sending postMessage to popup to focus itself");
             } else {
-              console.log("!!! userActivation.isActive is FALSE! triggering popupWindow.focus()");
+              console.log("!!! userActivation.isActive is FALSE! sending postMessage to popup to focus itself");
             }
-            // triggering popupWindow.focus() no matter what the value of userActivation.isActive is for now!            
+
             try {
-              popupWindow.focus();
+              popupWindow.postMessage("FOCUS", "https://bunpay.app");
             } catch (e) {
-              console.error("Unable to trigger popupWindow.focus(): " + e);
+              console.error("Unable to postMessage() to the popup " + e);
             }
           }
         },
