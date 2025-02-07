@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>popup window CORS example</title>
+  </head>
+  <body>
+    <button onclick="openPopup()">Open popup window</button>
+
+    <script>
+        let popupWindow = null;
+
+        function openPopup() {
+            popupWindow = window.open("https://pay.google.com/about/", "_blank", "width=600,height=400");
+
+            // Optional: Check if the popup was blocked
+            if (popupWindow && popupWindow.closed) {
+                alert("Popup blocked! Please allow popups for this site.");
+            } else if (popupWindow) {
+                // Optional:  You can interact with the popup window here if needed.
+                // For example, you could send messages to it.
+                // popupWindow.postMessage("Hello from parent!", "*"); // Example
+            }
+        }
+
+        window.addEventListener(
+        "message",
+        (event) => {
+          if (event.origin !== "https://dmengelt.github.io") {
+            console.log("Received message but origin was not dmengelt.github.io");
+          } else {
+            console.log("Received event: " + event.data);
+            if (navigator.userActivation.isActive) {
+              console.log("!!! userActivation.isActive is TRUE! triggering popupWindow.focus()");
+            } else {
+              console.log("!!! userActivation.isActive is FALSE! triggering popupWindow.focus()");
+            }
+            // triggering focusPaymentSheet() no matter what the value of userActivation.isActive is for now!
+            popupWindow.focus();
+          }
+        },
+        false,
+      );
+
+
+    </script>
+  </body>
+</html>
