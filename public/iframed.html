@@ -281,6 +281,20 @@
         },
         false,
       );
+
+      window.onerror = function (message, file, line, col, error) {
+        console.log("Error occurred: " + error.message);
+        return false;
+      };
+
+      window.addEventListener("error", function (e) {
+        console.log("Error occurred: " + e.error.message);
+        return false;
+      });
+
+      window.addEventListener('unhandledrejection', function (e) {
+        console.log("Error occurred: " + e.reason.message);
+      });
     </script>
   </body>
 </html>
