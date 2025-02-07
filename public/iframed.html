@@ -275,7 +275,13 @@
           if (event.origin !== "https://dmengelt.github.io") {
             console.log("Received message but origin was not dmengelt.github.io");
           } else {
-            console.log("Received event: " + event.data + " - triggering focusPaymentSheet()");
+            console.log("Received event: " + event.data);
+            if (navigator.userActivation.isActive) {
+              console.log("!!! userActivation.isActive is TRUE! triggering focusPaymentSheet()");
+            } else {
+              console.log("!!! userActivation.isActive is FALSE! triggering focusPaymentSheet()");
+            }
+            // triggering focusPaymentSheet() no matter what the value of userActivation.isActive is for now!
             paymentsClient.focusPaymentSheet();
           }
         },
