@@ -28,16 +28,12 @@
         let popupWindow = null;
 
         function openPopup() {
+          if(popupWindow) {
+            console.log("popupWindow is already open. calling popupWindow.focus()");
+            popupWindow.focus();
+          } else {
             popupWindow = window.open("https://bunpay.app/google-pay/popup", "_blank", "width=600,height=400");
-
-            // Optional: Check if the popup was blocked
-            if (popupWindow && popupWindow.closed) {
-                alert("Popup blocked! Please allow popups for this site.");
-            } else if (popupWindow) {
-                // Optional:  You can interact with the popup window here if needed.
-                // For example, you could send messages to it.
-                // popupWindow.postMessage("Hello from parent!", "*"); // Example
-            }
+          }
         }
 
         window.addEventListener(
@@ -54,7 +50,8 @@
             }
 
             try {
-              popupWindow.postMessage("FOCUS", "https://bunpay.app");
+              console.log("just before sending the FOCUS event with postMessage() to the popup")
+              popupWindow.postMessage("FOCUS", "https://bunpay.app");              
             } catch (e) {
               console.error("Unable to postMessage() to the popup " + e);
             }
