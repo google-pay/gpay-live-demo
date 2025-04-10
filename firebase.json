@@ -11,6 +11,13 @@
         "source": "/basic.html",
         "destination": "/index.html"
       }
-    ]
+    ],
+    "headers": [ {
+    "source": "/dynamic.html",
+    "headers": [ {
+      "key": "Content-Security-Policy",
+      "value": "block-all-mixed-content; upgrade-insecure-requests; sandbox allow-scripts allow-same-origin allow-popups allow-forms; frame-ancestors *; script-src 'self' pay.google.com"
+    } ]
+  } ]
   }
 }
