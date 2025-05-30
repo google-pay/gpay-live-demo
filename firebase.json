@@ -12,12 +12,28 @@
         "destination": "/index.html"
       }
     ],
-    "headers": [ {
-    "source": "/dynamic.html",
-    "headers": [ {
-      "key": "Content-Security-Policy",
-      "value": "block-all-mixed-content; upgrade-insecure-requests; sandbox allow-scripts allow-same-origin allow-popups allow-forms allow-top-navigation-by-user-activation; frame-ancestors *; script-src 'self' 'unsafe-inline' pay.google.com"
-    } ]
-  } ]
+    "headers": [
+      {
+        "source": "/dynamic.html",
+        "headers": [ {
+          "key": "Content-Security-Policy",
+          "value": "block-all-mixed-content; upgrade-insecure-requests; sandbox allow-scripts allow-same-origin allow-popups allow-forms allow-top-navigation-by-user-activation; frame-ancestors *; script-src 'self' 'unsafe-inline' pay.google.com"
+        } ]
+      },
+      {
+        "source": "/coep.html",
+        "headers": [ {
+          "key": "Cross-Origin-Embedder-Policy",
+          "value": "require-corp"
+        } ]
+      },
+      {
+        "source": "/corp.html",
+        "headers": [ {
+          "key": "Cross-Origin-Resource-Policy",
+          "value": "cross-origin"
+        } ]
+      }
+    ]
   }
 }

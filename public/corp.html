@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Pay CORP</title>
+  <script src="https://pay.google.com/gp/p/js/pay.js"></script>
+</head>
+<body>
+  <div id="container"></div>
+
+  <script>
+    const paymentsClient = new google.payments.api.PaymentsClient({ environment: 'TEST' });
+
+    const baseRequest = {
+      apiVersion: 2,
+      apiVersionMinor: 0
+    };
+
+    const allowedCardAuthMethods = ['PAN_ONLY', 'CRYPTOGRAM_3DS'];
+    const allowedCardNetworks = ['VISA', 'MASTERCARD'];
+
+    const tokenizationSpecification = {
+      type: 'PAYMENT_GATEWAY',
+      parameters: {
+        gateway: 'example',
+        gatewayMerchantId: 'exampleMerchantId'
+      }
+    };
+
+    const baseCardPaymentMethod = {
+      type: 'CARD',
+      parameters: {
+        allowedAuthMethods: allowedCardAuthMethods,
+        allowedCardNetworks: allowedCardNetworks
+      }
+    };
+
+    const cardPaymentMethod = Object.assign({}, baseCardPaymentMethod, {
+      tokenizationSpecification: tokenizationSpecification
+    });
+
+    function getGoogleIsReadyToPayRequest() {
+      return Object.assign({}, baseRequest, {
+        allowedPaymentMethods: [baseCardPaymentMethod]
+      });
+    }
+
+    function getGooglePaymentDataRequest() {
+      return Object.assign({}, baseRequest, {
+        allowedPaymentMethods: [cardPaymentMethod],
+        transactionInfo: {
+          totalPriceStatus: 'FINAL',
+          totalPrice: '1.00',
+          currencyCode: 'USD',
+          countryCode: 'US'
+        },
+        merchantInfo: {
+          merchantId: '12345678901234567890',
+          merchantName: 'Demo Merchant'
+        }
+      });
+    }
+
+    function onGooglePayLoaded() {
+      paymentsClient.isReadyToPay(getGoogleIsReadyToPayRequest())
+        .then(function(response) {
+          if (response.result) {
+            const button = paymentsClient.createButton({ onClick: onGooglePaymentButtonClicked });
+            document.getElementById('container').appendChild(button);
+          } else {
+            console.error('Google Pay is not available.');
+          }
+        })
+        .catch(function(err) {
+          console.error('Error determining readiness to use Google Pay: ', err);
+        });
+    }
+
+    function onGooglePaymentButtonClicked() {
+      const paymentDataRequest = getGooglePaymentDataRequest();
+      paymentsClient.loadPaymentData(paymentDataRequest)
+        .then(function(paymentData) {
+          console.log('Payment data:', paymentData);
+        })
+        .catch(function(err) {
+          console.error('Payment failed: ', err);
+        });
+    }
+
+    window.onload = onGooglePayLoaded;
+  </script>
+</body>
+</html>
