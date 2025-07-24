@@ -1,32 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Apple Pay Web</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple Pay JS Demo</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Apple Pay button stylesheet -->
     <style>
-        apple-pay-button {
-        --apple-pay-button-width: 150px;
-        --apple-pay-button-height: 30px;
-        --apple-pay-button-border-radius: 3px;
-        --apple-pay-button-padding: 0px 0px;
-        --apple-pay-button-box-sizing: border-box;
+        /* * Apple Pay button styling. 
+         * As per Apple's guidelines, use their provided styles.
+         * The -apple-pay-button-style can be 'black', 'white', or 'white-with-line'.
+        */
+        #apple-pay-button {
+            display: none; /* Hidden by default, shown by JS if Apple Pay is available */
+            -webkit-appearance: -apple-pay-button;
+            -apple-pay-button-type: plain; /* 'buy', 'set-up', 'donate', etc. */
+            -apple-pay-button-style: black;
+            height: 44px;
+            width: 200px;
+            border-radius: 8px;
+            cursor: pointer;
         }
     </style>
 </head>
+<body class="bg-gray-100 flex items-center justify-center h-screen font-sans">
 
-<body>
-    <p>Demo merchant checkout page with a Apple Pay button</p>
-    <div id="apple-pay-container">
-        <apple-pay-button buttonstyle="black" type="plain" locale="en-US"></apple-pay-button>
-    </div>    
-    <hr/>
-    <div id="user-agent"></div>    
-    <script type="text/javascript">    
-        function onPageLoaded() {
-            document.getElementById('user-agent').innerHTML= window.navigator.userAgent;
-        }
+    <div class="text-center p-8 bg-white rounded-xl shadow-lg max-w-sm w-full">
+        <h1 class="text-2xl font-bold text-gray-800 mb-2">Awesome T-Shirt</h1>
+        <p class="text-gray-600 mb-4">The best t-shirt on the web.</p>
+
+        <img src="https://placehold.co/300x300/F3F4F6/374151?text=T-Shirt" alt="A plain t-shirt" class="rounded-lg mb-6 mx-auto">
+        
+        <div class="text-3xl font-light text-gray-900 mb-6">
+            $9.99
+        </div>
+
+        <!-- Apple Pay Button -->
+        <button id="apple-pay-button" aria-label="Pay with Apple Pay"></button>
+
+        <!-- Message displayed if Apple Pay is not available -->
+        <div id="apple-pay-not-supported" class="hidden text-red-500 text-sm">
+            <p>Apple Pay is not supported on this device or browser. Please try on Safari on an Apple device.</p>
+        </div>
+
+        <!-- Message for transaction status -->
+        <div id="status-message" class="mt-4 text-green-600 font-semibold"></div>
+    </div>
+
+    <script>
+        // --- 1. CHECK FOR APPLE PAY AVAILABILITY ---
+        // Check if the browser and device support Apple Pay and if the device has a card set up.
+        document.addEventListener('DOMContentLoaded', () => {
+            const applePayButton = document.getElementById('apple-pay-button');
+            const notSupportedMessage = document.getElementById('apple-pay-not-supported');
+
+            if (window.ApplePaySession && ApplePaySession.canMakePayments()) {
+                applePayButton.style.display = 'inline-block';
+            } else {
+                notSupportedMessage.classList.remove('hidden');
+            }
+        });
+
+        // --- 2. HANDLE BUTTON CLICK ---
+        document.getElementById('apple-pay-button').addEventListener('click', () => {
+            const statusMessage = document.getElementById('status-message');
+            statusMessage.textContent = ''; // Clear previous messages
+
+            // --- 3. CREATE PAYMENT REQUEST ---
+            // This object defines the payment details.
+            const paymentRequest = {
+                countryCode: 'US',
+                currencyCode: 'USD',
+                supportedNetworks: ['visa', 'masterCard', 'amex', 'discover'],
+                merchantCapabilities: ['supports3DS'],
+                total: {
+                    label: 'Awesome T-Shirt Inc.',
+                    amount: '9.99' 
+                }
+            };
+
+            // --- 4. CREATE APPLE PAY SESSION ---
+            // The version number (e.g., 6) should match the API version you are using.
+            const session = new ApplePaySession(6, paymentRequest);
+
+            // --- 5. MERCHANT VALIDATION ---
+            // This event is triggered to validate your merchant identity.
+            // In a real-world scenario, you would make a fetch request to your server.
+            // Your server would then talk to Apple to get a valid merchant session.
+            session.onvalidatemerchant = (event) => {
+                console.log("Validating merchant...");
+                // In this demo, we'll simulate a successful validation with a dummy object.
+                // The `event.validationURL` should be passed to your server.
+                const merchantSession = {
+                    "displayName": "Awesome T-Shirt Inc.",
+                    "domainName": "your-domain.com", // Replace with your registered domain
+                    "epochTimestamp": Date.now(),
+                    "expiresAt": Date.now() + 600000, // Expires in 10 minutes
+                    "merchantIdentifier": "merchant.com.example.your-merchant-id", // Replace with your merchant ID
+                    "merchantSessionIdentifier": "fake-session-identifier",
+                    "nonce": "a-random-nonce",
+                    "signature": "fake-signature"
+                };
+                // In a real implementation, you would get this session object from your server.
+                session.completeMerchantValidation(merchantSession);
+            };
+
+            // --- 6. PAYMENT AUTHORIZATION ---
+            // This event is triggered after the user authenticates the payment (e.g., with Face ID).
+            // The `event.payment` object contains the encrypted payment token.
+            session.onpaymentauthorized = (event) => {
+                console.log('Payment authorized. Token:', event.payment.token);
+                // In a real-world scenario, you would send this token to your payment processor (e.g., Stripe, Braintree)
+                // for decryption and processing.
+                
+                // For this demo, we'll simulate a successful payment.
+                const paymentStatus = ApplePaySession.STATUS_SUCCESS;
+                session.completePayment(paymentStatus);
+
+                // Update the UI to show success
+                statusMessage.textContent = 'Payment successful! Thank you.';
+                console.log('Payment successfully completed.');
+            };
+
+            // --- 7. HANDLE CANCELLATION ---
+            // This event is triggered if the user cancels the payment sheet.
+            session.oncancel = (event) => {
+                console.log('Payment was cancelled.');
+                statusMessage.textContent = 'Payment was cancelled.';
+            };
+
+            // --- 8. START THE SESSION ---
+            // This displays the Apple Pay payment sheet to the user.
+            session.begin();
+        });
     </script>
-    <script src="https://applepay.cdn-apple.com/jsapi/1.latest/apple-pay-sdk.js" onload="onPageLoaded()"></script>
+    <script crossorigin src="https://applepay.cdn-apple.com/jsapi/1.latest/apple-pay-sdk.js"></script>
+
 </body>
 </html>
