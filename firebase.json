@@ -21,6 +21,13 @@
         } ]
       },
       {
+        "source": "/apple-pay.html",
+        "headers": [ {
+          "key": "Cross-Origin-Embedder-Policy",
+          "value": "require-corp"
+        } ]
+      },
+      {
         "source": "/coep.html",
         "headers": [ {
           "key": "Cross-Origin-Embedder-Policy",

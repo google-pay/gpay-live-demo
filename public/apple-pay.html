@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apple Pay Web</title>
+    <style>
+        apple-pay-button {
+        --apple-pay-button-width: 150px;
+        --apple-pay-button-height: 30px;
+        --apple-pay-button-border-radius: 3px;
+        --apple-pay-button-padding: 0px 0px;
+        --apple-pay-button-box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <p>Demo merchant checkout page with a Apple Pay button</p>
+    <div id="apple-pay-container">
+        <apple-pay-button buttonstyle="black" type="plain" locale="en-US"></apple-pay-button>
+    </div>    
+    <hr/>
+    <div id="user-agent"></div>    
+    <script type="text/javascript">    
+        function onPageLoaded() {
+            document.getElementById('user-agent').innerHTML= window.navigator.userAgent;
+        }
+    </script>
+    <script src="https://applepay.cdn-apple.com/jsapi/1.latest/apple-pay-sdk.js" onload="onPageLoaded()"></script>
+</body>
+</html>

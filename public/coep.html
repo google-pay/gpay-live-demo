@@ -2,13 +2,20 @@
 <html>
 <head>
   <title>Google Pay COEP</title>
-  <script src="https://pay.google.com/gp/p/js/pay.js"></script>
+  <!--<script src="https://pay.google.com/gp/p/js/pay.js"></script>-->
+  
 </head>
 <body>
   <div id="container"></div>
 
   <script>
-    const paymentsClient = new google.payments.api.PaymentsClient({ environment: 'TEST' });
+    window.addEventListener("error", (event) => {      
+      console.error(event);
+    });
+
+    window.addEventListener("unhandledrejection", (event) => {
+      console.error(event);
+    });
 
     const baseRequest = {
       apiVersion: 2,
@@ -20,7 +27,7 @@
 
     const tokenizationSpecification = {
       type: 'PAYMENT_GATEWAY',
-      parameters: {
+      parametes: {
         gateway: 'example',
         gatewayMerchantId: 'exampleMerchantId'
       }
@@ -60,7 +67,12 @@
       });
     }
 
+    function getGooglePaymentsClient() {
+      return new google.payments.api.PaymentsClient({ environment: 'TEST' });     
+    }
+
     function onGooglePayLoaded() {
+      const paymentsClient = getGooglePaymentsClient();
       paymentsClient.isReadyToPay(getGoogleIsReadyToPayRequest())
         .then(function(response) {
           if (response.result) {
@@ -76,6 +88,7 @@
     }
 
     function onGooglePaymentButtonClicked() {
+      const paymentsClient = getGooglePaymentsClient();
       const paymentDataRequest = getGooglePaymentDataRequest();
       paymentsClient.loadPaymentData(paymentDataRequest)
         .then(function(paymentData) {
@@ -84,9 +97,10 @@
         .catch(function(err) {
           console.error('Payment failed: ', err);
         });
-    }
+    }    
 
-    window.onload = onGooglePayLoaded;
+    //window.onload = onGooglePayLoaded;
   </script>
+  <script src="http://localhost:10079/gp/p/js/pay.js" onload="onGooglePayLoaded()" crossorigin></script>
 </body>
 </html>
