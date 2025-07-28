@@ -27,7 +27,7 @@
 
     const tokenizationSpecification = {
       type: 'PAYMENT_GATEWAY',
-      parametes: {
+      parameters: {
         gateway: 'example',
         gatewayMerchantId: 'exampleMerchantId'
       }
@@ -101,6 +101,7 @@
 
     //window.onload = onGooglePayLoaded;
   </script>
-  <script src="http://localhost:10079/gp/p/js/pay.js" onload="onGooglePayLoaded()" crossorigin></script>
+  
+  <script src="https://pay.google.com/gp/p/js/pay.js" onload="onGooglePayLoaded()" crossorigin></script>
 </body>
 </html>
