@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Google Pay COEP</title>
-  <!--<script src="https://pay.google.com/gp/p/js/pay.js"></script>-->
-  
+  <title>Google Pay COEP with crossorigin attribute when loading pay.js</title>  
 </head>
 <body>
   <div id="container"></div>
@@ -102,6 +100,6 @@
     //window.onload = onGooglePayLoaded;
   </script>
   
-  <script src="https://pay.google.com/gp/p/js/pay.js" onload="onGooglePayLoaded()"></script>
+  <script src="https://pay.google.com/gp/p/js/pay.js" onload="onGooglePayLoaded()" crossorigin></script>
 </body>
 </html>
