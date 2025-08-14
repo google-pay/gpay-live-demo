@@ -59,6 +59,8 @@ const buttonRadius = document.getElementById('button-radius');
 /** @type {HTMLSelectElement} */
 const buttonLocale = document.getElementById('button-locale');
 /** @type {HTMLInputElement} */
+const buttonBorderType = document.getElementById('button-border-type');
+/** @type {HTMLInputElement} */
 const buttonCustom = document.getElementById('button-custom');
 /** @type {HTMLInputElement} */
 const buttonWidth = document.getElementById('button-width');
@@ -111,6 +113,11 @@ buttonRadius.addEventListener('change', event => {
   updateState();
 });
 
+buttonBorderType.addEventListener('change', event => {  
+  button.buttonBorderType = buttonBorderType.value;
+  updateState();
+});
+
 function handleSliderInput(event) {
   const element = event.target.parentElement.querySelector('.value');
   element.textContent = `(${event.target.value}px)`;
@@ -119,6 +126,7 @@ function handleSliderInput(event) {
 buttonWidth.addEventListener('input', handleSliderInput);
 buttonHeight.addEventListener('input', handleSliderInput);
 buttonRadius.addEventListener('input', handleSliderInput);
+buttonBorderType.addEventListener('input', handleSliderInput);
 
 buttonLibrary.addEventListener('change', event => {
   library = buttonLibrary.value;
@@ -136,6 +144,7 @@ const button = googlePayClient.createButton({
   buttonColor: '${button.buttonColor || 'default'}',
   buttonType: '${button.buttonType || 'buy'}',
   buttonRadius: ${button.buttonRadius || 4},
+  buttonBorderType: '${button.buttonBorderType || 'default_border'}',
   ${button.buttonLocale ? `buttonLocale: \'${button.buttonLocale}\',` : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? 'buttonSizeMode: \'fill\',' : '__empty__'}
   onClick: () => {},
@@ -151,6 +160,7 @@ container.appendChild(button);`,
   buttonColor="${button.buttonColor || 'default'}"
   buttonType="${button.buttonType || 'buy'}"
   buttonRadius="${button.buttonRadius || '4'}"
+  buttonBorderType="${button.buttonBorderType || 'default_border'}"
   ${button.buttonLocale ? `buttonLocale="${button.buttonLocale}"` : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? 'buttonSizeMode="fill"' : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? `style={{width: ${buttonWidth.value}, height: ${buttonHeight.value}}}` : '__empty__'}
@@ -163,6 +173,7 @@ container.appendChild(button);`,
   buttonColor="${button.buttonColor || 'default'}"
   buttonType="${button.buttonType || 'buy'}"
   buttonRadius="${button.buttonRadius || '4'}"
+  buttonBorderType="${button.buttonBorderType || 'default_border'}"
   ${button.buttonLocale ? `buttonLocale="${button.buttonLocale}"` : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? 'buttonSizeMode="fill"' : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? `style="width: ${buttonWidth.value}px; height: ${buttonHeight.value}px;"` : '__empty__'}
@@ -175,6 +186,7 @@ container.appendChild(button);`,
   button-color="${button.buttonColor || 'default'}"
   button-type="${button.buttonType || 'buy'}"
   button-radius="${button.buttonRadius || '4'}"
+  buttonBorderType="${button.buttonBorderType || 'default_border'}"
   ${button.buttonLocale ? `button-locale="${button.buttonLocale}"` : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? 'button-size-mode="fill"' : '__empty__'}
   ${button.buttonSizeMode === 'fill' ? `style="width: ${buttonWidth.value}px; height: ${buttonHeight.value}px;"` : '__empty__'}
