@@ -89,6 +89,13 @@
         <span>Button corner radius <span class="value"></span></span>
         <input id="button-radius" type="range" min="0" max="100" value="4" />
       </label>
+      <label class="control">
+        <span>Button border type</span>
+        <select id="button-border-type">
+          <option value="no_border">no_border</option>
+          <option value="default_border" selected>default_border</option>
+        </select>
+      </label>
       <label>
         <input id="button-custom" type="checkbox" />
         <span>Custom button size</span>
@@ -109,6 +116,7 @@
         button-color="default"
         button-type="buy"
         button-radius="4"
+        button-border-type="default_border"
       ></google-pay-button>
     </div>
 
