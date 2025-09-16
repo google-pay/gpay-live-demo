@@ -270,8 +270,6 @@
             .then(function(response) {
               if (response.result) {
                 addGooglePayButton();
-                // @todo prefetch payment data to improve performance after confirming site functionality
-                // prefetchGooglePaymentData();
               }
             })
             .catch(function(err) {
@@ -385,24 +383,6 @@
           intent: "SHIPPING_ADDRESS"
         };
       }
-
-      /**
-       * Prefetch payment data to improve performance
-       *
-       * @see {@link https://developers.google.com/pay/api/web/reference/client#prefetchPaymentData|prefetchPaymentData()}
-       */
-      function prefetchGooglePaymentData() {
-        const paymentDataRequest = getGooglePaymentDataRequest();
-        // transactionInfo must be set but does not affect cache
-        paymentDataRequest.transactionInfo = {
-          totalPriceStatus: 'NOT_CURRENTLY_KNOWN',
-          currencyCode: 'USD'
-        };
-        const paymentsClient = getGooglePaymentsClient();
-        paymentsClient.prefetchPaymentData(paymentDataRequest);
-      }
-
-
 
       /**
        * Show Google Pay payment sheet when Google Pay payment button is clicked
