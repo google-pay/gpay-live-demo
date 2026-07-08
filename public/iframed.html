@@ -254,8 +254,8 @@
       window.addEventListener(
         "message",
         (event) => {
-          if (event.origin !== "https://dmengelt.github.io") {
-            console.log("Received message but origin was not dmengelt.github.io");
+          if (event.origin !== "https://4242.cards") {
+            console.log("Received message but origin was not 4242.cards");
           } else {
             console.log("Received event: " + event.data);
             if (navigator.userActivation.isActive) {
