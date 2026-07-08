@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "gpay-live-demo",
     "public": "public",
     "ignore": [
       "firebase.json",
