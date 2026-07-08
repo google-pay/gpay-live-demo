@@ -233,7 +233,7 @@
             .catch(function(err) {
               // show error in developer console for debugging
               console.log(err);
-              window.parent.postMessage("An error occured: " + JSON.stringify(err), "https://dmengelt.github.io");
+              window.parent.postMessage("An error occured: " + JSON.stringify(err), "https://4242.cards");
             });
       }
 
@@ -245,7 +245,7 @@
        */
       function processPayment(paymentData) {
         console.log(paymentData);
-        window.parent.postMessage("Success with card: " + paymentData.paymentMethodData.description, "https://dmengelt.github.io");
+        window.parent.postMessage("Success with card: " + paymentData.paymentMethodData.description, "https://4242.cards");
         // show returned data in developer console for debugging        
         // @todo pass payment token to your gateway to process payment
         paymentToken = paymentData.paymentMethodData.tokenizationData.token;
@@ -254,6 +254,7 @@
       window.addEventListener(
         "message",
         (event) => {
+          console.log("Received message from origin: " + event.origin);
           if (event.origin !== "https://4242.cards") {
             console.log("Received message but origin was not 4242.cards");
           } else {
