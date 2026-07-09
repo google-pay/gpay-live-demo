@@ -123,6 +123,17 @@ function handleSliderInput(event) {
   element.textContent = `(${event.target.value}px)`;
 }
 
+function updateSliderValue(slider) {
+  const element = slider.parentElement.querySelector('.value');
+  if (element) {
+    element.textContent = `(${slider.value}px)`;
+  }
+}
+
+updateSliderValue(buttonWidth);
+updateSliderValue(buttonHeight);
+updateSliderValue(buttonRadius);
+
 buttonWidth.addEventListener('input', handleSliderInput);
 buttonHeight.addEventListener('input', handleSliderInput);
 buttonRadius.addEventListener('input', handleSliderInput);
